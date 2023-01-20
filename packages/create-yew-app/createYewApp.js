@@ -65,7 +65,7 @@ console.log(` Creating a new Yew app in ${chalk.green(rootFolder)}. `);
 console.log();
 
 // This uses --no-tags and --depth 1 in order to make the cloning faster
-run("git", ["clone", "--no-tags", "--depth", "1", "https://github.com/jetli/create-yew-app.git", gitFolder]);
+run("git", ["clone", "--no-tags", "--depth", "1", "https://github.com/RoBaertschi/create-yew-app.git", "--branch", "feature/trunk", gitFolder]);
 
 // Copies the yew-app folder
 cpr(path.join(gitFolder, "crates/yew-app"), folderName, {}, function (err, files) {
@@ -83,9 +83,20 @@ cpr(path.join(gitFolder, "crates/yew-app"), folderName, {}, function (err, files
     // Install npm deps
     run("npm", ["install"], { cwd: folderName });
 
+    
+    // Install trunk
+    if (!isPresent("trunk --version")) {
+      console.log(" Installing trunk ...")
+      run("cargo", ["install", "trunk"]);
+      console.log(" Installed trunk ✅ ")
+    }
+    
+
     // Install wasm-pack
     if (!isPresent("wasm-pack --version")) {
+      console.log(" Installing wasm-pack ...")
       run("cargo", ["install", "wasm-pack"]);
+      console.log(" Installed wasm-pack ✅ ")
     }
 
     console.log(" Installed dependencies ✅ ");
@@ -101,13 +112,13 @@ cpr(path.join(gitFolder, "crates/yew-app"), folderName, {}, function (err, files
     console.log(' Inside that directory, you can run several commands:');
     console.log();
     console.log(chalk.cyan('   npm start'));
-    console.log('     Starts the development server.');
+    console.log('     Starts the development server with trunk.');
     console.log();
     console.log(chalk.cyan('   npm run build'));
-    console.log('     Bundles the app into static files for production.');
+    console.log('     Bundles the app into static files for production. Using trunk!');
     console.log();
     console.log(chalk.cyan('   npm run test'));
-    console.log('     Starts the test runner.');
+    console.log('     Starts the test runner with wasm-pack.');
     console.log();
     console.log(' We suggest that you begin by typing:');
     console.log();

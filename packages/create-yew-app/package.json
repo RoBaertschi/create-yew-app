@@ -23,9 +23,8 @@
     "wasm",
     "webassembly",
     "wasm-bindgen",
-    "wasm-pack",
-    "rust",
-    "parcel"
+    "trunk",
+    "rust"
   ],
   "author": "Jet Li <jing.i.qin@icloud.com>",
   "license": "Apache-2.0",
